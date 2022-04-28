@@ -38,7 +38,6 @@ class TodoServiceShould {
         closeTodo.setId(2L);
         closeTodo.setDescription("Close todo");
         dummyTodos.add(closeTodo);
-        when(todoRepository.findAllOrderById()).thenReturn(dummyTodos);
 
     }
 
@@ -75,6 +74,7 @@ class TodoServiceShould {
     @Test
     public void get_all_open_todos()
     {
+        when(todoRepository.findAllOrderById()).thenReturn(dummyTodos);
         TodoService todoService = new TodoService(todoRepository);
 
         Iterable<Todo> todos = todoService.getAllTodosByFilter("Open");
@@ -87,6 +87,8 @@ class TodoServiceShould {
     @Test
     public void get_all_close_todos()
     {
+        when(todoRepository.findAllOrderById()).thenReturn(dummyTodos);
+
         TodoService todoService = new TodoService(todoRepository);
 
         Iterable<Todo> todos = todoService.getAllTodosByFilter("Close");

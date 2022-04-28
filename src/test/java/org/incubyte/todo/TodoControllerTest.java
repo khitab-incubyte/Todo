@@ -40,17 +40,6 @@ public class TodoControllerTest {
         Assertions.assertThat(retrievedTodo.isDone()).isEqualTo(savedTodo.isDone());
     }
 
-    @Test
-    public void get_a_404_error_if_there_is_no_todo() {
-
-//        Todo retrievedTodo = this.httpClient.toBlocking().retrieve(HttpRequest.GET("/todos/1"), Argument.of(Todo.class));
-
-//        Assertions.assertThat(retrievedTodo.getId()).isEqualTo(1);
-//        Assertions.assertThat(retrievedTodo.getDescription()).isEqualTo(savedTodo.getDescription());
-//        Assertions.assertThat(retrievedTodo.isDone()).isEqualTo(savedTodo.isDone());
-
-    }
-
 
     @Test
     public void get_all_the_todos_from() {
@@ -72,7 +61,7 @@ public class TodoControllerTest {
         List<Todo> retrivedTodoList = httpClient.toBlocking().retrieve(
                 HttpRequest.GET("todos/"), Argument.listOf(Todo.class));
 
-        Assertions.assertThat(retrivedTodoList).containsExactly(savedTodo1, savedTodo2, savedTodo3);
+        Assertions.assertThat(retrivedTodoList).contains(savedTodo1, savedTodo2, savedTodo3);
     }
 
     @Test
