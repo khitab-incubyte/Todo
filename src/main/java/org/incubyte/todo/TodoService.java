@@ -2,9 +2,7 @@ package org.incubyte.todo;
 
 import jakarta.inject.Singleton;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -12,10 +10,15 @@ import java.util.stream.StreamSupport;
 @Singleton
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final HashMap<String, Boolean> filter;
 
     public TodoService(TodoRepository todoRepository) {
 
         this.todoRepository = todoRepository;
+
+        this.filter = new HashMap<String, Boolean>();
+        this.filter.put("Open", false);
+        this.filter.put("Close", true);
     }
 
     public Todo save(Todo todo) {
@@ -32,14 +35,9 @@ public class TodoService {
 
     public Iterable<Todo> getAllTodosByFilter(String status) {
         Iterable<Todo> todos = getAllTodos();
-        boolean isDoneCondition = false;
-        if (status == "Close") {
-            isDoneCondition = true;
-        }
 
-        boolean finalIsDoneCondition = isDoneCondition;
         List<Todo> result = StreamSupport.stream(todos.spliterator(), false)
-                .filter(todo -> todo.isDone() == finalIsDoneCondition)
+                .filter(todo -> todo.isDone() == filter.get(status))
                 .collect(Collectors.toList());
         return result;
     }
