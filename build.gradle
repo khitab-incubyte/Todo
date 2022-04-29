@@ -33,7 +33,7 @@ dependencies {
 
 
 application {
-    mainClass.set("org.incubyte.bank.Application")
+    mainClass.set("org.incubyte.todo")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
